@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status da Fila - Restaurante</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app">
+        <header class="header">
+            <div class="container">
+                <h1>Status da Fila</h1>
+            </div>
+        </header>
+
+        <main class="main">
+            <div class="container">
+                <div class="status-card">
+                    <div class="status-header">
+                        <h2>Verifique sua posição</h2>
+                        <p>Digite seu número de telefone para verificar sua posição na fila</p>
+                    </div>
+
+                    <div class="status-form">
+                        <div class="form-group">
+                            <label for="telefone">Número de Telefone</label>
+                            <div class="input-group">
+                                <i class="fas fa-phone"></i>
+                                <input type="text" 
+                                       id="telefone" 
+                                       name="telefone"
+                                       placeholder="(00) 00000-0000" 
+                                       maxlength="15"
+                                       required
+                                       pattern="^\(\d{2}\) \d{5}-\d{4}$"
+                                       title="Digite um número de telefone válido no formato (00) 00000-0000">
+                            </div>
+                            <small class="form-text text-muted">Formato: (00) 00000-0000</small>
+                        </div>
+                        <button class="btn btn-primary" onclick="verificarStatus()">
+                            <i class="fas fa-search"></i>
+                            Verificar Status
+                        </button>
+                    </div>
+
+                    <div id="status" class="status-result">
+                        <div class="empty-state">
+                            <i class="fas fa-hourglass-start"></i>
+                            <p>Digite seu número de telefone para verificar sua posição na fila</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Como funciona?</h3>
+                    <ul class="info-list">
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Digite o número de telefone usado no cadastro</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock"></i>
+                            <span>O status é atualizado automaticamente a cada 30 segundos</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-bell"></i>
+                            <span>Você será notificado quando sua mesa estiver pronta</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="container">
+                <p>Restaurante &copy; 2024 - Todos os direitos reservados</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="status-cliente.js"></script>
+</body>
+</html> 

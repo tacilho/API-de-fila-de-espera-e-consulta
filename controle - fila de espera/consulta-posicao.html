@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Posição - Restaurante</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-light: #eef1ff;
+            --primary-dark: #3a56d4;
+            --success: #10b981;
+            --success-light: #ecfdf5;
+            --warning: #f59e0b;
+            --warning-light: #fffbeb;
+            --danger: #ef4444;
+            --danger-light: #fef2f2;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--primary-light), #ffffff);
+            color: var(--gray-800);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 90%;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .header h1 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .header p {
+            color: var(--gray-600);
+            font-size: 1.1rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            animation: slideUp 0.5s ease-in-out;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--gray-700);
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .input-group {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 1rem;
+            color: var(--gray-400);
+            font-size: 1.2rem;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid var(--gray-200);
+            border-radius: 0.75rem;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 0.75rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn i {
+            margin-right: 0.5rem;
+        }
+
+        .alert {
+            padding: 1.5rem;
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .alert i {
+            font-size: 2rem;
+            margin-right: 1rem;
+        }
+
+        .alert-success {
+            background-color: var(--success-light);
+            color: var(--success);
+        }
+
+        .alert-warning {
+            background-color: var(--warning-light);
+            color: var(--warning);
+        }
+
+        .alert-danger {
+            background-color: var(--danger-light);
+            color: var(--danger);
+        }
+
+        .alert-info {
+            background-color: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .status-result {
+            margin-top: 2rem;
+        }
+
+        .status-result h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .status-result p {
+            color: var(--gray-600);
+            font-size: 1.1rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--gray-500);
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            color: var(--gray-400);
+        }
+
+        .position-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 1rem 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Consulta de Posição</h1>
+            <p>Digite seu número de telefone para verificar sua posição na fila</p>
+        </header>
+
+        <div class="card">
+            <div class="form-group">
+                <label for="telefone">Número de Telefone</label>
+                <div class="input-group">
+                    <i class="fas fa-phone"></i>
+                    <input type="text" 
+                           id="telefone" 
+                           placeholder="Digite seu telefone" 
+                           maxlength="11"
+                           required>
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="verificarStatus()">
+                <i class="fas fa-search"></i>
+                Verificar Posição
+            </button>
+
+            <div id="status" class="status-result">
+                <div class="empty-state">
+                    <i class="fas fa-hourglass-start"></i>
+                    <p>Digite seu número de telefone para verificar sua posição na fila</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let intervaloAtualizacao = null;
+        let ultimoTelefone = '';
+
+        async function verificarStatus() {
+            const telefone = document.getElementById('telefone').value;
+            const statusDiv = document.getElementById('status');
+            
+            if (!telefone) {
+                statusDiv.innerHTML = `
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <div>
+                            <h3>Campo obrigatório</h3>
+                            <p>Por favor, digite seu número de telefone</p>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            // Limpa o telefone antes de enviar
+            const telefoneLimpo = telefone.replace(/\D/g, '');
+            console.log('Telefone limpo:', telefoneLimpo);
+            
+            // Armazena o último telefone consultado
+            ultimoTelefone = telefoneLimpo;
+            
+            try {
+                const response = await fetch(`http://localhost:8080/api/clientes/status/${telefoneLimpo}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Erro ao verificar status');
+                }
+
+                const data = await response.json();
+                atualizarStatus(data);
+                
+                // Inicia a atualização automática
+                iniciarAtualizacaoAutomatica();
+            } catch (error) {
+                console.error('Erro ao verificar status:', error);
+                statusDiv.innerHTML = `
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <div>
+                            <h3>Erro ao verificar status</h3>
+                            <p>${error.message}</p>
+                            <p class="mt-2">Verifique se o servidor está rodando em http://localhost:8080</p>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function iniciarAtualizacaoAutomatica() {
+            // Limpa o intervalo anterior se existir
+            if (intervaloAtualizacao) {
+                clearInterval(intervaloAtualizacao);
+            }
+            
+            // Atualiza a cada 30 segundos
+            intervaloAtualizacao = setInterval(verificarStatus, 30000);
+        }
+
+        function atualizarStatus(data) {
+            const statusDiv = document.getElementById('status');
+            let mensagem = '';
+            
+            if (data.error) {
+                mensagem = `
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <div>
+                            <h3>Erro</h3>
+                            <p>${data.error}</p>
+                        </div>
+                    </div>
+                `;
+            } else {
+                switch(data.status) {
+                    case 'CHAMADO':
+                        mensagem = `
+                            <div class="alert alert-success">
+                                <i class="fas fa-check-circle"></i>
+                                <div>
+                                    <h3>Sua mesa está pronta!</h3>
+                                    <p>Por favor, dirija-se ao balcão</p>
+                                </div>
+                            </div>
+                        `;
+                        // Para a atualização automática quando o cliente é chamado
+                        if (intervaloAtualizacao) {
+                            clearInterval(intervaloAtualizacao);
+                        }
+                        break;
+                    case 'AGUARDANDO':
+                        mensagem = `
+                            <div class="alert alert-info">
+                                <i class="fas fa-hourglass-half"></i>
+                                <div>
+                                    <h3>Sua posição na fila</h3>
+                                    <div class="position-number">${data.posicao}</div>
+                                    <p>Aguarde sua vez</p>
+                                </div>
+                            </div>
+                        `;
+                        break;
+                    default:
+                        mensagem = `
+                            <div class="alert alert-secondary">
+                                <i class="fas fa-info-circle"></i>
+                                <div>
+                                    <h3>Status desconhecido</h3>
+                                    <p>Entre em contato com o atendimento</p>
+                                </div>
+                            </div>
+                        `;
+                }
+            }
+            
+            statusDiv.innerHTML = mensagem;
+        }
+
+        // Limpa o intervalo quando a página é fechada
+        window.addEventListener('beforeunload', function() {
+            if (intervaloAtualizacao) {
+                clearInterval(intervaloAtualizacao);
+            }
+        });
+    </script>
+</body>
+</html> 

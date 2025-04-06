@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Mesas</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app">
+        <header class="header">
+            <div class="container">
+                <h1>Gerenciamento de Mesas</h1>
+            </div>
+        </header>
+
+        <main class="main">
+            <div class="container">
+                <div class="grid">
+                    <div>
+                        <section class="card form-section">
+                            <div class="card-header">
+                                <h2>Adicionar Nova Mesa</h2>
+                            </div>
+                            <div class="card-body">
+                                <form id="mesaForm">
+                                    <div class="form-group">
+                                        <label for="numero">Número da Mesa</label>
+                                        <input type="number" id="numero" required min="1" placeholder="Ex: 1">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="capacidade">Capacidade</label>
+                                        <input type="number" id="capacidade" required min="1" placeholder="Ex: 4">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                        </svg>
+                                        Adicionar Mesa
+                                    </button>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+
+                    <div>
+                        <section class="card tables-section">
+                            <div class="card-header">
+                                <h2>Mesas Cadastradas</h2>
+                                <div class="card-actions">
+                                    <button class="btn btn-icon btn-refresh" onclick="loadMesas()">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div id="mesasList" class="tables-list"></div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="container">
+                <p>&copy; 2025 Sistema de Gerenciamento de Restaurante</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+

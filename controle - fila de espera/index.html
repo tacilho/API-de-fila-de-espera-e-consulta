@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gerenciamento de Fila</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app">
+        <header class="header">
+            <div class="container">
+                <h1>Sistema de Gerenciamento de Fila</h1>
+            </div>
+        </header>
+
+        <main class="main">
+            <div class="container">
+                <div class="dashboard">
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="3" y1="9" x2="21" y2="9"></line>
+                                <line x1="9" y1="21" x2="9" y2="9"></line>
+                            </svg>
+                        </div>
+                        <div class="dashboard-card-content">
+                            <h3>Mesas Disponíveis</h3>
+                            <p id="totalMesas">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid">
+                    <section class="card form-section">
+                        <div class="card-header">
+                            <h2>Adicionar Cliente à Fila</h2>
+                        </div>
+                        <div class="card-body">
+                            <form id="filaForm">
+                                <div class="form-group">
+                                    <label for="nome">Nome</label>
+                                    <input type="text" id="nome" required placeholder="Nome do cliente">
+                                </div>
+                                <div class="form-group">
+                                    <label for="telefone">Telefone</label>
+                                    <input type="text" id="telefone" required placeholder="(00) 00000-0000">
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="pessoas">Quantidade de Pessoas</label>
+                                        <input type="number" id="pessoas" required min="1" placeholder="1">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="prioridade">Prioridade (0-10)</label>
+                                        <input type="number" id="prioridade" min="0" max="10" value="0">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="observacoes">Observações</label>
+                                    <textarea id="observacoes" placeholder="Observações adicionais (opcional)"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    </svg>
+                                    Adicionar à Fila
+                                </button>
+                            </form>
+                        </div>
+                    </section>
+
+                    <section class="card queue-section">
+                        <div class="card-header">
+                            <h2>Fila de Espera</h2>
+                            <div class="card-actions">
+                                <button class="btn btn-icon btn-refresh" onclick="loadFila()">Atualizar</button>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div id="filaList" class="queue-list"></div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="container">
+                <p>&copy; 2025 Sistema de Gerenciamento de Fila</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
